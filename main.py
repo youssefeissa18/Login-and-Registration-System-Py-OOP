@@ -15,6 +15,9 @@ class User:
     def get_email(self):
         return self.email
 
+    def get_age(self):
+        return self.age
+
 class UserManage:
     def __init__(self):
         self.Users = []
@@ -47,11 +50,17 @@ class UserManage:
             print("You Password Or Email Wrong Try Again")
             return False
 
+    def Show_User_List(self):
+        print("User List:")
+        for UserIndex in self.Users:
+            # print("Name: " + UserIndex.get_name())
+            print(f"NAME : {UserIndex.get_name()}\t\tAGE : {UserIndex.get_age()}")
+
 
 print("============================== Login and Registration System ==============================")
-print("1. Register User\n2. Login User\n3. Show User List\n4. Search User\n5. Delete User\n6. Exit")
 user = UserManage()
 while True:
+    print("1. Register User\n2. Login User\n3. Show User List\n4. Search User\n5. Delete User\n6. Exit")
     choice = int(input("Enter Your Choice "))
     if  choice == 1:
         user.RegisterUser()
@@ -59,6 +68,8 @@ while True:
         email = input("Enter Your Email : ")
         password = input("Enter Your Password : ")
         user.login_User(email, password)
+    elif choice == 3:
+        user.Show_User_List()
     elif choice == 6:
         print("============================== Login and Registration System Terminate ==============================")
         exit(0)
