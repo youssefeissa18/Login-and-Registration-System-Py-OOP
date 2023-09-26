@@ -53,15 +53,28 @@ class UserManage:
     def Show_User_List(self):
         print("User List:")
         for UserIndex in self.Users:
-            # print("Name: " + UserIndex.get_name())
-            print(f"NAME : {UserIndex.get_name()}\tAGE : {UserIndex.get_age()}")
+            print(f"NAME : {UserIndex.get_name()}\tAGE : {UserIndex.get_age()}\t Email : {UserIndex.get_email()}")
 
     def Search_User(self, name):
+        flag = 0
         for UserIndex in self.Users:
             if UserIndex.get_name() == name:
-                print(f"Founded\nName : {UserIndex.get_name()}\t Age : {UserIndex.get_age()}")
-        else:
-            print("Not Founded")
+                flag = 1
+                print(f"Founded\nName : {UserIndex.get_name()}\t Age : {UserIndex.get_age()}\t Email : {UserIndex.get_email()}")
+        if flag == 0:
+            print("Not Found")
+
+    def delete_User(self, email, password):
+        flag = 0
+        for UserIndex in self.Users:
+            if email == UserIndex.get_email() and password == UserIndex.get_password():
+                flag = 1
+                self.Users.remove(UserIndex)
+                print("Your Email Remove Successfully")
+        if flag == 0:
+            print("This User Not have Any Email in this SyStem")
+
+
 
 
 print("============================== Login and Registration System ==============================")
@@ -83,6 +96,11 @@ while True:
     elif choice == 4:
         name = input("Enter Name You Want to search : ")
         user.Search_User(name)
+
+    elif choice == 5:
+        email = input("Enter Your Email : ")
+        password = input("Enter Your Password : ")
+        user.delete_User(email, password)
 
     elif choice == 6:
         print("============================== Login and Registration System Terminate ==============================")
