@@ -54,7 +54,14 @@ class UserManage:
         print("User List:")
         for UserIndex in self.Users:
             # print("Name: " + UserIndex.get_name())
-            print(f"NAME : {UserIndex.get_name()}\t\tAGE : {UserIndex.get_age()}")
+            print(f"NAME : {UserIndex.get_name()}\tAGE : {UserIndex.get_age()}")
+
+    def Search_User(self, name):
+        for UserIndex in self.Users:
+            if UserIndex.get_name() == name:
+                print(f"Founded\nName : {UserIndex.get_name()}\t Age : {UserIndex.get_age()}")
+        else:
+            print("Not Founded")
 
 
 print("============================== Login and Registration System ==============================")
@@ -64,12 +71,19 @@ while True:
     choice = int(input("Enter Your Choice "))
     if  choice == 1:
         user.RegisterUser()
+
     elif choice == 2:
         email = input("Enter Your Email : ")
         password = input("Enter Your Password : ")
         user.login_User(email, password)
+
     elif choice == 3:
         user.Show_User_List()
+
+    elif choice == 4:
+        name = input("Enter Name You Want to search : ")
+        user.Search_User(name)
+
     elif choice == 6:
         print("============================== Login and Registration System Terminate ==============================")
         exit(0)
