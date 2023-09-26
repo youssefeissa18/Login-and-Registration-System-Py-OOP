@@ -1,3 +1,4 @@
+import re
 class User:
     def __init__(self,  name, email, password, age):
         self.name = name
@@ -11,25 +12,35 @@ class User:
     def get_password(self):
         return self.password
 
-    def get_Email(self):
+    def get_email(self):
         return self.email
 
 class UserManage:
     def __init__(self):
         self.Users = []
 
+    @staticmethod
+    def is_valid_email(email):
+        # Use a simple regular expression to validate email
+        return re.match(r'^[\w\.-]+@[\w\.-]+$', email) is not None
+
     def  RegisterUser(self):
-        name = input("Enter Your Name : ")
-        age = int(input("Enter Your Age : "))
-        email = input("Enter Your Email : ")
-        password = input("Enter Your Password : ")
-        new_User = User(name, email, password, age)
-        self.Users.append(new_User)
-        print("Your Registration User Do Successfully")
+        while True:
+            name = input("Enter Your Name : ")
+            age = int(input("Enter Your Age : "))
+            email = input("Enter Your Email : ")
+            password = input("Enter Your Password : ")
+            if len(password) >= 8 and UserManage.is_valid_email(email):
+                new_User = User(name, email, password, age)
+                self.Users.append(new_User)
+                print("Your Registration User Do Successfully")
+                break
+            else:
+                print("Your Info do You Enter is Valid and Try Again")
 
     def login_User(self, email, password):
         for UserIndex in self.Users:
-            if UserIndex.get_Email() == email and password == UserIndex.get_password():
+            if UserIndex.get_email() == email and password == UserIndex.get_password():
                 print("You Login Successfully")
                 return True
         else:
@@ -38,7 +49,7 @@ class UserManage:
 
 
 print("============================== Login and Registration System ==============================")
-print("1. Register User\n2. Login User\n3. Show User List\n4. Search User\n5. Delete User")
+print("1. Register User\n2. Login User\n3. Show User List\n4. Search User\n5. Delete User\n6. Exit")
 user = UserManage()
 while True:
     choice = int(input("Enter Your Choice "))
@@ -48,4 +59,9 @@ while True:
         email = input("Enter Your Email : ")
         password = input("Enter Your Password : ")
         user.login_User(email, password)
-    
+    elif choice == 6:
+        print("============================== Login and Registration System Terminate ==============================")
+        exit(0)
+
+
+
